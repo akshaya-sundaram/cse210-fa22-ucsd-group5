@@ -1,0 +1,67 @@
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.hidden {
+    display: none;
+}
+
+.login-screen {
+    flex: 1 1 0%;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.login-screen h1 {
+    width: 100%;
+    padding: 2rem 1rem;
+    text-align: center;
+    font-size: 8rem;
+}
+
+
+.login-screen div {
+    display: flex;
+    flex-direction: row;
+}
+
+.login-screen input {
+    width: 100%;
+}
+
+.user-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-screen div h2 {
+    width: 100vw;
+    text-align: left;
+    font-size: 4rem;
+}
+
+/* .user-screen div button {
+    display: block;
+    width: 100%;
+    padding: none;
+} */
+
+.note_button {
+    width: 95vw;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 15px;
+    line-height: 50px;
+    font-weight: bold;
+    padding: 0 50px;
+    background: #ADDFFF;
+    border: none;
+  }
+
+button:hover {
+background: #ADDDDD;
+  }

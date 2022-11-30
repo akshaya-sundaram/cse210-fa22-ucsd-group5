@@ -5,6 +5,8 @@ class User extends AbstractUserMenu {
         this.container = container;
         this.tweets = [];
         this.topics = {};
+        this.db = db;
+        this.contentManager = new ContentManagemnt(this.db);
         this.htmlElements = [];
 
         
@@ -52,7 +54,7 @@ class User extends AbstractUserMenu {
         this.newFolderBtn.onclick = () => {
             this.createTopic(`New Topic ${this.topicIDNum}`, true);
         }
-        getAllTopics((returnObj) => {
+        /* this.contentManager.getAllTopics((returnObj) => {
             if (returnObj.topicsList.length > 0){
             this.topics[DEFAULT_TOPIC] = new TopicFactory(
                 DEFAULT_TOPIC,
@@ -78,7 +80,7 @@ class User extends AbstractUserMenu {
     }
 
     readTopics() {
-        getAllTopics((topicEvent) => {
+        this.contentManager.getAllTopics((topicEvent) => {
             for(let topic of topicEvent.topicsList) {
                 if (topic !== DEFAULT_TOPIC) {
                     this.createTopic(topic);
@@ -108,7 +110,7 @@ class User extends AbstractUserMenu {
     readTweetsPerTopic(topic_id) {
         console.log('topic_id', topic_id)
         let scope = this;
-        this.tweets= getTweetsByTopicId(topic_id, 
+        this.tweets= this.contentManager.getTweetsByTopicId(topic_id, 
             function (topicList) {
                 scope.displayTweetsByTopics(topic_id, topicList);
         });

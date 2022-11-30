@@ -53,7 +53,7 @@ class User extends AbstractUserMenu {
             this.createTopic(`New Topic ${this.topicIDNum}`, true);
         }
         getAllTopics((returnObj) => {
-            console.log(returnObj.topicsList)
+            //console.log(returnObj.topicsList)
             if (returnObj.topicsList.length == 0){
             this.topics[DEFAULT_TOPIC] = new TopicFactory(
                 DEFAULT_TOPIC,
@@ -62,7 +62,7 @@ class User extends AbstractUserMenu {
                 DEFAULT_TOPIC, 
                 true);
             }
-            console.log("entered topic")
+            //console.log("entered topic");
             //this.readTweetsPerTopic(DEFAULT_TOPIC);
             //this.htmlElements.push(...this.topics[DEFAULT_TOPIC].getHTMLElements());
 
@@ -78,23 +78,23 @@ class User extends AbstractUserMenu {
 
     readTopics() {
         getAllTopics((topicEvent) => {
+            console.log(topicEvent.topicsList);
             for(let topic of topicEvent.topicsList) {
-               
                 this.createTopic(topic);
                 this.readTweetsPerTopic(topic);
                 this.htmlElements.push(...this.topics[topic].getHTMLElements());
-                
             }
         });
 
     }
 
     createTopic(topic, isNewTopic = false) {
+        console.log(topic);
         this.topics[topic] = new TopicFactory(
             topic,
             db,
             this.container,
-            this.topicIDNum,
+            topic,
             isNewTopic
         );
         
@@ -105,7 +105,7 @@ class User extends AbstractUserMenu {
     }
 
     readTweetsPerTopic(topic_id) {
-        console.log('topic_id', topic_id)
+        //console.log('topic_id', topic_id)
         let scope = this;
         this.tweets= getTweetsByTopicId(topic_id, 
             function (topicList) {

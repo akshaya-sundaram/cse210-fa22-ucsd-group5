@@ -1,11 +1,11 @@
 let DEFAULT_TOPIC = 'General';
 class TopicFactory extends AbstractUserMenu {
-    constructor(title, db, container, topicid=null, isNewEntry = false) {
+    constructor(title, db, container, topicId=null, isNewEntry = false) {
         super();
 
         this.title = title;
     	this.tweets = [];
-    	this.topicid = topicid ? topicid : TOPIC_ID++;
+    	this.topicId = topicId;
     	this.container = container;
 
     	this.initializeHTML();
@@ -58,10 +58,9 @@ class TopicFactory extends AbstractUserMenu {
     promptNewTopicName() {
         
         let text;
-        let newTopicId = prompt("New name for topic");
-        console.log(this.topicid)
-        this.contentManager.updateTopic(this.topicid, newTopicId);
-        this.topicid = newTopicId;
+        let newTopicName = prompt("New name for topic");
+        updateTopic(this.topicId, newTopicName);
+        this.title = newTopicName;
           
     }
 
@@ -82,7 +81,10 @@ class TopicFactory extends AbstractUserMenu {
 
 
 	initializeDB() {
-        createTopic(this.title, console.log);
+        createTopic(this.title, function (data){
+            this.topicId = data.id;
+        });
+
     }
 	
 

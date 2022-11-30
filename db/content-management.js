@@ -8,10 +8,10 @@ let FAILURE_STATUS = 500;
 let db;
 
 function setupDB(namespace, callback) {
-    console.log("Hello");
+    //console.log("Hello");
 
     if (db) {
-        console.log("DB already present");
+        //console.log("DB already present");
         callback();
         return;
     }
@@ -90,7 +90,7 @@ function updateTweet(tweetId, tweetText, topicId, statusCallback) {
             tweet.topicId = topicId;
         }
 
-        const updateReq = objStore.update(tweet);
+        const updateReq = db.transaction([tweetStoreName], "readwrite").objectStore(tweetStoreName).update(tweet);
         updateReq.onsuccess = (_) => {
             statusCallback({status: OK_STATUS});
         }
@@ -144,7 +144,7 @@ function deleteTweet(tweetId, statusCallback) {
 //      Nothing
 
 function createTopic(topicName, statusCallback) {
-    const topicId = topicName;
+    const topicId = `topic-${Date.now()}`;
     const topicObj = {topicId: topicId, topicName: topicName};
     const objStore = db.transaction([topicStoreName], "readwrite").objectStore(topicStoreName);
     const request = objStore.add(topicObj);
@@ -173,6 +173,7 @@ function createTopic(topicName, statusCallback) {
 //      Nothing
 
 function updateTopic(topicId, topicName, statusCallback) {
+    console.log(topicId);
     const objStore = db.transaction([topicStoreName], "readwrite").objectStore(topicStoreName);
     const fetchRequest = objStore.get(topicId);
 
@@ -180,7 +181,7 @@ function updateTopic(topicId, topicName, statusCallback) {
         const topic = event.target.result;
         topic.topicName = topicName;
 
-        const updateReq = objStore.update(topic);
+        const updateReq = db.transaction([topicStoreName], "readwrite").objectStore(topicStoreName).update(topic); 
         updateReq.onsuccess = (_) => {
             statusCallback({status: OK_STATUS});
         }
@@ -217,7 +218,7 @@ function getTweetsByTopicId(topicId, displayTweetsCallback) {
         displayTweetsCallback({status: OK_STATUS, data: data});
         };
 
-        request.onerror = (event) => {
+    request.onerror = (event) => {
         displayTweetsCallback({status: FAILURE_STATUS, errorMessage: `Failed fetch tweets request by topic ID ${topicId} with error code ${event.target.result}`});
         }
 }

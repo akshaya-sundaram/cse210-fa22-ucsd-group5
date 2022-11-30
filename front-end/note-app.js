@@ -29,7 +29,6 @@ function fadeInOut(items, fadein=true) {
 }
 
 function launchUser(userName = "") {
-    console.log("Inside launch user");
     // check to see if user exists
     let userScreen = document.getElementById('user-div');
     let name = userName.trim();

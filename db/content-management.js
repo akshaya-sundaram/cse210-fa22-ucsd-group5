@@ -8,10 +8,8 @@ let FAILURE_STATUS = 500;
 let db;
 
 function setupDB(namespace, callback) {
-    //console.log("Hello");
 
     if (db) {
-        //console.log("DB already present");
         callback();
         return;
     }

@@ -29,10 +29,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      #Download the dependencies
-      - name: Setup Node
-        run: npm install
-
       #Install jest
       - name: Jest for Unit testing 
         run: npm install --save-dev jest
